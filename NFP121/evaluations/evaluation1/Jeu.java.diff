@@ -1,0 +1,42 @@
+3c3,5
+< public interface Jeu {
+---
+> public class Jeu {
+>     public static final int MAX_PRISE = 3;
+>     private int allumettes;
+5,6c7,9
+< 	/** Nombre maximal d'allumettes pouvant être prises. */
+< 	int PRISE_MAX = 3;
+---
+>     public Jeu(int allumettes) {
+>         this.allumettes = allumettes;
+>     }
+8,11c11,13
+< 	/** Obtenir le nombre d'allumettes encore en jeu.
+< 	 * @return nombre d'allumettes encore en jeu
+< 	 */
+< 	int getNombreAllumettes();
+---
+>     public int getNombreAllumettes() {
+>         return this.allumettes;
+>     }
+13,19c15,20
+< 	/** Retirer des allumettes.  Le nombre d'allumettes doit être compris
+< 	 * entre 1 et PRISE_MAX, dans la limite du nombre d'allumettes encore
+< 	 * en jeu.
+< 	 * @param nbPrises nombre d'allumettes prises.
+< 	 * @throws CoupInvalideException tentative de prendre un nombre invalide d'allumettes
+< 	 */
+< 	void retirer(int nbPrises) throws CoupInvalideException;
+---
+>     public void retirer(int nb) throws CoupInvalideException {
+>         if (nb < 1 || nb > MAX_PRISE || nb > allumettes) {
+>             throw new CoupInvalideException("Nombre invalide : " + nb);
+>         }
+>         allumettes -= nb;
+>     }
+20a22,25
+>     @Override
+>     public String toString() {
+>         return "Allumettes restantes : " + allumettes;
+>     }
